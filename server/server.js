@@ -10,7 +10,9 @@ const bodyParser = require("body-parser");
 const SignupSchema = require("./models/SignupModel");
 const BudgetSchema = require("./models/BudgetModel");
 const ExpenseSchema = require("./models/ExpenseModel");
-let url = "mongodb://127.0.0.1:27017/personal-budget";
+// let url = "mongodb+srv://doadmin:783K09jDYI41egi6@db-mongodb-4094713a.mongo.ondigitalocean.com/admin?tls=true&authSource=admin";
+
+let url = "mongodb+srv://doadmin:783K09jDYI41egi6@db-mongodb-4094713a.mongo.ondigitalocean.com/admin?tls=true&authSource=admin";
 
 const bcrypt = require("bcrypt");
 const port = 3002;
@@ -32,7 +34,7 @@ const jwtmw = exjwt({
 async function encryptPassword(password) {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  console.log(hashedPassword);
+  // console.log(hashedPassword);
   return hashedPassword;
 }
 
@@ -215,9 +217,9 @@ app.get("/check-existing-budget/:userId/:month/:category", jwtmw, async (req, re
 
 app.post("/refresh-token/:userId",async(req,res)=>{
   const {userId}=req.params
-  console.log(userId)
+  // console.log(userId)
   const user = await SignupSchema.findById(userId);
-  console.log(user)
+  // console.log(user)
       const newtoken=generateToken(user)
   res.json({token:newtoken})
 })
